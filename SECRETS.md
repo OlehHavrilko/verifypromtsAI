@@ -4,6 +4,33 @@
 хранятся и что из этого публичное. Проект Supabase уже создан:
 **`ymceuebfejaemtaxlatc`** (`https://ymceuebfejaemtaxlatc.supabase.co`, регион eu-west-1).
 
+## В двух словах
+
+Есть три кабинета, и ключи идут из них в одном направлении — в настройки GitHub-репозитория:
+
+```
+DeepSeek  → ключ sk-…                ──┐
+                                      ├─→  GitHub (Variables + Secrets)  →  Actions  →  деплой
+Supabase  → URL, publishable key,    ──┘
+            project ref, access token,
+            пароль БД
+```
+
+- **GitHub → Variables** — то, что должно попасть в браузер (URL Supabase и его
+  publishable-ключ). Видно всем, это нормально.
+- **GitHub → Secrets** — служебные ключи, которыми GitHub Actions деплоит бэкенд
+  (токен Supabase, ref проекта, пароль БД, ключ DeepSeek). В браузер не попадают.
+- **Supabase → Edge Functions → Secrets** — рабочая копия `AI_API_KEY`. Её туда
+  автоматически кладёт workflow `Deploy Supabase backend`, руками ничего не надо.
+
+### Куда НЕ надо ничего вставлять
+
+- `service_role` / `SUPABASE_SECRET_KEY` — функции получают его сами, а во фронтенд
+  и в GitHub он попадать не должен.
+- `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` — Supabase сам
+  прокидывает их в edge-функции.
+- Любые `LOVABLE_*` — их больше не существует в проекте.
+
 ## TL;DR — минимум для первого теста
 
 Нужно **6 значений**. Пять кладутся в GitHub, одно — секретом функций.
