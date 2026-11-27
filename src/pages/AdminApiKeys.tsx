@@ -24,7 +24,7 @@ const KEY_REGISTRY: KeyRecord[] = [
   {
     name: "AI_API_KEY",
     source: "secret",
-    purpose: "Ключ AI-провайдера (OpenAI-совместимый) — генерация, оценка, чат, анализ изображений, eval-judge",
+    purpose: "Ключ DeepSeek API (или другого OpenAI-совместимого провайдера) — генерация, оценка, чат, eval-judge",
     functions: [
       "enhance-prompt",
       "generate-prompt",
@@ -38,19 +38,31 @@ const KEY_REGISTRY: KeyRecord[] = [
   {
     name: "AI_BASE_URL",
     source: "secret",
-    purpose: "OpenAI-совместимый endpoint, по умолчанию https://api.openai.com/v1",
+    purpose: "OpenAI-совместимый endpoint, по умолчанию https://api.deepseek.com/v1",
     functions: ["enhance-prompt", "generate-prompt", "score-prompt", "text-tools", "analyze-image", "prompt-chat", "run-eval"],
   },
   {
     name: "AI_MODEL",
     source: "secret",
-    purpose: "Модель по умолчанию для всех функций, например gpt-4o-mini",
+    purpose: "Модель по умолчанию для всех функций, например deepseek-chat",
     functions: ["enhance-prompt", "generate-prompt", "score-prompt", "text-tools", "analyze-image", "prompt-chat", "run-eval"],
   },
   {
     name: "AI_VISION_MODEL",
     source: "secret",
-    purpose: "Модель для analyze-image; по умолчанию совпадает с AI_MODEL",
+    purpose: "Vision-модель для analyze-image; у DeepSeek её нет, нужен другой OpenAI-совместимый провайдер",
+    functions: ["analyze-image"],
+  },
+  {
+    name: "AI_VISION_BASE_URL",
+    source: "secret",
+    purpose: "Endpoint vision-провайдера для analyze-image; по умолчанию равен AI_BASE_URL",
+    functions: ["analyze-image"],
+  },
+  {
+    name: "AI_VISION_API_KEY",
+    source: "secret",
+    purpose: "Ключ vision-провайдера для analyze-image; по умолчанию равен AI_API_KEY",
     functions: ["analyze-image"],
   },
   {

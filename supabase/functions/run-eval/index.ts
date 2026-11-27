@@ -9,6 +9,8 @@ const corsHeaders = {
 
 // USD per token. Unknown models fall back to zero cost instead of guessing.
 const PRICING: Record<string, { in: number; out: number }> = {
+  "deepseek-chat": { in: 0.27 / 1e6, out: 1.1 / 1e6 },
+  "deepseek-reasoner": { in: 0.55 / 1e6, out: 2.19 / 1e6 },
   "gpt-4o-mini": { in: 0.15 / 1e6, out: 0.6 / 1e6 },
   "gpt-4o": { in: 2.5 / 1e6, out: 10 / 1e6 },
   "gpt-5-mini": { in: 0.25 / 1e6, out: 2 / 1e6 },

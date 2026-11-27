@@ -34,6 +34,8 @@ CRITICAL LANGUAGE RULE:
 
     const response = await aiChat({
       model,
+      baseUrl: ai.visionBaseUrl,
+      apiKey: ai.visionApiKey,
       messages: [
         { role: "system", content: systemPrompt },
         {

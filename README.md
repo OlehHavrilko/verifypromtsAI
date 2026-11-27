@@ -31,7 +31,7 @@ OpenAI-совместимый провайдер с вашим ключом.
 
 - **Frontend:** React 18, TypeScript, Vite 5, Tailwind CSS, shadcn/ui (Radix), Zustand, React Router
 - **Backend:** Supabase (Postgres + RLS, Auth, 10 Edge Functions на Deno)
-- **LLM:** любой OpenAI-совместимый endpoint (OpenAI, OpenRouter, Groq, DeepSeek, Gemini compat, локальный vLLM)
+- **LLM:** DeepSeek API по умолчанию; подойдёт любой OpenAI-совместимый endpoint (OpenAI, OpenRouter, Groq, Gemini compat, локальный vLLM)
 - **Хостинг:** GitHub Pages (статика) + GitHub Actions (CI и деплой)
 - **Платежи (опционально):** Stripe
 
@@ -98,12 +98,12 @@ supabase/
 
 | Секрет | Назначение | По умолчанию |
 | --- | --- | --- |
-| `AI_API_KEY` | ключ провайдера (обязателен) | — |
-| `AI_BASE_URL` | OpenAI-совместимый endpoint | `https://api.openai.com/v1` |
-| `AI_MODEL` | модель по умолчанию | `gpt-4o-mini` |
-| `AI_VISION_MODEL` | модель для анализа изображений | = `AI_MODEL` |
+| `AI_API_KEY` | ключ DeepSeek API (обязателен) | — |
+| `AI_BASE_URL` | OpenAI-совместимый endpoint | `https://api.deepseek.com/v1` |
+| `AI_MODEL` | модель по умолчанию | `deepseek-chat` |
+| `AI_PROVIDER` | метка провайдера в трейсах | `deepseek` |
 | `AI_JUDGE_MODEL` | модель-судья для eval-прогонов | = `AI_MODEL` |
-| `AI_PROVIDER` | метка провайдера в трейсах | `openai` |
+| `AI_VISION_MODEL`, `AI_VISION_BASE_URL`, `AI_VISION_API_KEY` | vision-провайдер для анализа изображений (у DeepSeek vision-модели нет) | = `AI_*` |
 
 Пользователь может подключить и свой ключ (OpenAI / Anthropic / OpenRouter) в
 **Settings → AI-провайдеры** — тогда `generate-prompt` маршрутизирует запрос

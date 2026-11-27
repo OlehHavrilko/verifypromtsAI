@@ -11,12 +11,13 @@ export interface PromptVersion {
 
 // Rough cost table (USD per 1M tokens). Approximate — refined per provider.
 const COST_TABLE: Record<string, { input: number; output: number }> = {
+  "deepseek-chat": { input: 0.27, output: 1.10 },
+  "deepseek-reasoner": { input: 0.55, output: 2.19 },
   "google/gemini-2.5-flash": { input: 0.075, output: 0.30 },
   "google/gemini-2.5-pro": { input: 1.25, output: 5.00 },
   "google/gemini-2.5-flash-lite": { input: 0.04, output: 0.15 },
-  "google/gemini-3-flash-preview": { input: 0.075, output: 0.30 },
-  "google/gemini-3.1-flash-image-preview": { input: 0.10, output: 0.40 },
   "gpt-4o-mini": { input: 0.15, output: 0.60 },
+  "gpt-4o": { input: 2.50, output: 10.00 },
   "gpt-5-mini": { input: 0.25, output: 1.00 },
   "claude-3-5-sonnet-20241022": { input: 3.00, output: 15.00 },
 };

@@ -1,26 +1,31 @@
 // Shared AI client for edge functions.
 //
-// Any OpenAI-compatible endpoint works: OpenAI, OpenRouter, Groq, DeepSeek,
-// Google Gemini (OpenAI compatibility layer), local vLLM, etc.
+// Defaults target the DeepSeek API. Any other OpenAI-compatible endpoint works
+// too: OpenAI, OpenRouter, Groq, Google Gemini (compat layer), local vLLM, etc.
 //
 // Required secrets:
-//   AI_API_KEY   — provider key
+//   AI_API_KEY   — DeepSeek API key
 // Optional secrets:
-//   AI_BASE_URL  — default https://api.openai.com/v1
-//   AI_MODEL     — default gpt-4o-mini
-//   AI_VISION_MODEL — model for image analysis, defaults to AI_MODEL
-//   AI_PROVIDER  — label written to llm_traces, default "openai"
+//   AI_BASE_URL  — default https://api.deepseek.com/v1
+//   AI_MODEL     — default deepseek-chat
+//   AI_PROVIDER  — label written to llm_traces, default "deepseek"
+//   AI_VISION_MODEL / AI_VISION_BASE_URL / AI_VISION_API_KEY
+//                — vision-capable endpoint for image analysis; DeepSeek has no
+//                  vision model, so point these at another provider if needed
 
 export interface AiConfig {
   apiKey: string;
   baseUrl: string;
   model: string;
   visionModel: string;
+  visionBaseUrl: string;
+  visionApiKey: string;
   provider: string;
 }
 
-const DEFAULT_BASE_URL = "https://api.openai.com/v1";
-const DEFAULT_MODEL = "gpt-4o-mini";
+const DEFAULT_BASE_URL = "https://api.deepseek.com/v1";
+const DEFAULT_MODEL = "deepseek-chat";
+const DEFAULT_PROVIDER = "deepseek";
 
 function env(name: string): string {
   return (Deno.env.get(name) ?? "").trim();
@@ -29,12 +34,15 @@ function env(name: string): string {
 export function aiConfig(): AiConfig {
   const baseUrl = (env("AI_BASE_URL") || DEFAULT_BASE_URL).replace(/\/+$/, "");
   const model = env("AI_MODEL") || DEFAULT_MODEL;
+  const apiKey = env("AI_API_KEY");
   return {
-    apiKey: env("AI_API_KEY"),
+    apiKey,
     baseUrl,
     model,
     visionModel: env("AI_VISION_MODEL") || model,
-    provider: env("AI_PROVIDER") || "openai",
+    visionBaseUrl: (env("AI_VISION_BASE_URL") || baseUrl).replace(/\/+$/, ""),
+    visionApiKey: env("AI_VISION_API_KEY") || apiKey,
+    provider: env("AI_PROVIDER") || DEFAULT_PROVIDER,
   };
 }
 
@@ -47,6 +55,9 @@ export interface AiChatOptions {
   temperature?: number;
   tools?: unknown[];
   toolChoice?: unknown;
+  /** Override the configured endpoint (used by the vision call). */
+  baseUrl?: string;
+  apiKey?: string;
 }
 
 /**
@@ -56,7 +67,9 @@ export interface AiChatOptions {
  */
 export async function aiChat(options: AiChatOptions): Promise<Response> {
   const config = aiConfig();
-  if (!config.apiKey) {
+  const apiKey = options.apiKey || config.apiKey;
+  const baseUrl = options.baseUrl || config.baseUrl;
+  if (!apiKey) {
     throw { status: 500, message: "AI_API_KEY is not configured on the server" };
   }
 
@@ -71,10 +84,10 @@ export async function aiChat(options: AiChatOptions): Promise<Response> {
   if (options.tools) body.tools = options.tools;
   if (options.toolChoice) body.tool_choice = options.toolChoice;
 
-  const response = await fetch(`${config.baseUrl}/chat/completions`, {
+  const response = await fetch(`${baseUrl}/chat/completions`, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${config.apiKey}`,
+      Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify(body),

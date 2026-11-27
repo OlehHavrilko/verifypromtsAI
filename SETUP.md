@@ -33,30 +33,46 @@
 
 ---
 
-## 2. AI-провайдер
+## 2. AI-провайдер: DeepSeek API
 
-Все LLM-вызовы идут через один OpenAI-совместимый клиент
-(`supabase/functions/_shared/ai.ts`). Подойдёт OpenAI, OpenRouter, Groq, DeepSeek,
-Gemini (OpenAI-совместимый слой) или локальный vLLM.
+По умолчанию все LLM-вызовы идут в **DeepSeek API** через общий
+OpenAI-совместимый клиент (`supabase/functions/_shared/ai.ts`). Ключ берётся на
+[platform.deepseek.com](https://platform.deepseek.com/api_keys).
 
 Задайте секреты edge-функций:
 
 ```bash
 supabase secrets set \
   AI_API_KEY=sk-... \
-  AI_MODEL=gpt-4o-mini \
-  AI_VISION_MODEL=gpt-4o-mini \
-  AI_JUDGE_MODEL=gpt-4o-mini \
+  AI_MODEL=deepseek-chat \
+  AI_JUDGE_MODEL=deepseek-chat \
   APP_SITE_URL=https://<user>.github.io/<repo>
 ```
 
-`AI_BASE_URL` нужен только для не-OpenAI провайдера, например:
+`AI_MODEL=deepseek-reasoner` включает reasoning-модель (дороже и медленнее, но
+сильнее в сложных промптах). `AI_BASE_URL` и `AI_PROVIDER` уже имеют значения по
+умолчанию (`https://api.deepseek.com/v1`, `deepseek`) — менять их не нужно.
+
+### Анализ изображений
+
+Vision-модели у DeepSeek нет, поэтому «Анализ изображений» нужно направить на
+другой OpenAI-совместимый провайдер (OpenAI, OpenRouter, Gemini compat). Остальные
+функции продолжат ходить в DeepSeek:
+
+```bash
+supabase secrets set \
+  AI_VISION_MODEL=gpt-4o-mini \
+  AI_VISION_BASE_URL=https://api.openai.com/v1 \
+  AI_VISION_API_KEY=sk-...
+```
+
+### Другой провайдер целиком
 
 ```bash
 # OpenRouter
-supabase secrets set AI_BASE_URL=https://openrouter.ai/api/v1 AI_MODEL=google/gemini-2.5-flash
-# Gemini (OpenAI compatibility)
-supabase secrets set AI_BASE_URL=https://generativelanguage.googleapis.com/v1beta/openai AI_MODEL=gemini-2.0-flash
+supabase secrets set AI_BASE_URL=https://openrouter.ai/api/v1 AI_MODEL=google/gemini-2.5-flash AI_PROVIDER=openrouter
+# OpenAI
+supabase secrets set AI_BASE_URL=https://api.openai.com/v1 AI_MODEL=gpt-4o-mini AI_PROVIDER=openai
 ```
 
 > `APP_SITE_URL` — полный публичный адрес приложения **с подпутём** GitHub Pages,
