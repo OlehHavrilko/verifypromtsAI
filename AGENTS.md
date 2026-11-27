@@ -1,0 +1,1 @@
+The main product UI uses a token-driven cinematic forge system with Archivo Black headings, Hind body text, and a responsive split input/output workspace because the generator is the primary workflow.

@@ -1,0 +1,58 @@
+# Local Supabase configuration for `supabase start` / `supabase db push`.
+# The project_id is only a local handle; the real project is linked through
+# `supabase link --project-ref <your-ref>`.
+project_id = "verifypromts-ai"
+
+[api]
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+major_version = 15
+
+[studio]
+port = 54323
+
+[auth]
+enabled = true
+site_url = "http://localhost:8080"
+additional_redirect_urls = ["http://localhost:8080", "http://localhost:4173"]
+jwt_expiry = 3600
+enable_signup = true
+
+[auth.email]
+enable_signup = true
+enable_confirmations = false
+
+[functions.analyze-image]
+verify_jwt = false
+
+[functions.text-tools]
+verify_jwt = false
+
+[functions.generate-prompt]
+verify_jwt = false
+
+[functions.score-prompt]
+verify_jwt = false
+
+[functions.check-subscription]
+verify_jwt = false
+
+[functions.create-checkout]
+verify_jwt = false
+
+[functions.customer-portal]
+verify_jwt = false
+
+[functions.prompt-chat]
+verify_jwt = false
+
+[functions.enhance-prompt]
+verify_jwt = false
+
+[functions.run-eval]
+verify_jwt = false

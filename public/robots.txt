@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+
+# Update the host if you move the app to a custom domain.
+Sitemap: https://olehhavrilko.github.io/verifypromtsAI/sitemap.xml

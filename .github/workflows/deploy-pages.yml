@@ -1,0 +1,65 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build static bundle
+    runs-on: ubuntu-latest
+    env:
+      # Project sites are served from /<repo>/, user sites from /.
+      VITE_BASE_PATH: /${{ github.event.repository.name }}/
+      VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+      VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY }}
+      VITE_SITE_URL: ${{ vars.VITE_SITE_URL }}
+      VITE_STRIPE_PRODUCT_PRO: ${{ vars.VITE_STRIPE_PRODUCT_PRO }}
+      VITE_STRIPE_PRICE_PRO: ${{ vars.VITE_STRIPE_PRICE_PRO }}
+      VITE_STRIPE_PRODUCT_BUSINESS: ${{ vars.VITE_STRIPE_PRODUCT_BUSINESS }}
+      VITE_STRIPE_PRICE_BUSINESS: ${{ vars.VITE_STRIPE_PRICE_BUSINESS }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Add SPA fallback and .nojekyll
+        run: node scripts/build-pages-fallback.mjs
+
+      - uses: actions/configure-pages@v5
+        with:
+          # Turns Pages on with source "GitHub Actions" on the first run.
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    name: Publish to Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
