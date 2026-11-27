@@ -44,11 +44,8 @@ jobs:
       - name: Add SPA fallback and .nojekyll
         run: node scripts/build-pages-fallback.mjs
 
-      - uses: actions/configure-pages@v5
-        with:
-          # Turns Pages on with source "GitHub Actions" on the first run.
-          enablement: true
-
+      # Pages must be enabled once in Settings → Pages → Source: GitHub Actions.
+      # The workflow only consumes it, so CI does not need admin permissions.
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
