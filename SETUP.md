@@ -39,7 +39,22 @@
 OpenAI-совместимый клиент (`supabase/functions/_shared/ai.ts`). Ключ берётся на
 [platform.deepseek.com](https://platform.deepseek.com/api_keys).
 
-Задайте секреты edge-функций:
+### Проверить ключ ещё до деплоя
+
+```bash
+AI_API_KEY=sk-... npm run test:deepseek                 # deepseek-chat
+AI_API_KEY=sk-... npm run test:deepseek -- deepseek-reasoner
+```
+
+Скрипт [scripts/test-deepseek.mjs](scripts/test-deepseek.mjs) проверяет ключ,
+список моделей и короткий chat-completion, печатает задержку и расход токенов.
+Если он зелёный — тот же ключ можно класть в секреты Supabase.
+
+### Секреты edge-функций
+
+Если деплоите через GitHub Actions (рекомендуется), секреты проставит
+[supabase.yml](.github/workflows/supabase.yml) — нужен только GitHub-secret
+`AI_API_KEY` (см. шаг 5). Вручную:
 
 ```bash
 supabase secrets set \
@@ -147,14 +162,28 @@ on conflict do nothing;
 | Variable | `VITE_SUPABASE_URL` | `https://<ref>.supabase.co` |
 | Variable | `VITE_SUPABASE_PUBLISHABLE_KEY` | publishable/anon key |
 | Variable | `VITE_SITE_URL` | `https://<user>.github.io/<repo>` (для canonical/OG) |
+| Variable | `APP_SITE_URL` | тот же адрес со слэшем на конце — уходит в секреты функций |
+| Variable | `AI_MODEL` | `deepseek-chat` (или `deepseek-reasoner`) |
 | Variable | `VITE_STRIPE_*` | ID продуктов и цен (если включён Stripe) |
 | Secret | `SUPABASE_ACCESS_TOKEN` | токен Supabase для workflow `supabase.yml` |
 | Secret | `SUPABASE_PROJECT_REF` | ref проекта |
 | Secret | `SUPABASE_DB_PASSWORD` | пароль БД |
+| Secret | `AI_API_KEY` | ключ DeepSeek — проставляется в секреты функций автоматически |
 
-**Settings → Pages → Source**: `GitHub Actions`. Если оставить `Deploy from a
-branch`, workflow `deploy-pages.yml` сам включит нужный источник при первом запуске
-(`enablement: true`).
+### Бэкенд в один запуск
+
+1. Добавьте четыре секрета `SUPABASE_ACCESS_TOKEN`, `SUPABASE_PROJECT_REF`,
+   `SUPABASE_DB_PASSWORD`, `AI_API_KEY` и переменные `VITE_SUPABASE_*`,
+   `APP_SITE_URL`, `AI_MODEL`.
+2. Actions → **Deploy Supabase backend** → *Run workflow* (все галки включены).
+   Workflow применит миграции, проставит секреты функций и выложит 10 функций.
+3. Actions → **Deploy to GitHub Pages** → *Run workflow*, чтобы пересобрать
+   фронтенд уже с ключами Supabase.
+
+После этого баннер «Supabase не настроен» исчезнет, а генератор, скоринг, чат и
+текстовые инструменты начнут отвечать через DeepSeek.
+
+**Settings → Pages → Source**: `GitHub Actions`.
 
 После пуша в `main` workflow соберёт приложение с базой
 `/<repo-name>/` и опубликует на `https://<user>.github.io/<repo>/`.
@@ -173,16 +202,18 @@ Edge-функции локально:
 
 ```bash
 supabase start            # поднимает Postgres + Auth + Functions в Docker
-supabase functions serve  # отдельный терминал, секреты из supabase/functions/.env
+cp supabase/functions/.env.example supabase/functions/.env   # и вписать AI_API_KEY
+supabase functions serve  # отдельный терминал
 ```
 
 ---
 
 ## Чек-лист
 
+- [ ] `npm run test:deepseek` проходит с вашим ключом
 - [ ] `supabase db push` прошёл без ошибок
 - [ ] `supabase functions deploy` — 10 функций в статусе ACTIVE
-- [ ] `AI_API_KEY` задан, `generate-prompt` отвечает 200
+- [ ] `AI_API_KEY` задан в секретах функций, `generate-prompt` отвечает 200
 - [ ] Auth Site URL / Redirect URLs указывают на Pages-адрес
 - [ ] Переменные `VITE_SUPABASE_*` добавлены в GitHub
 - [ ] Pages включён, первый деплой зелёный

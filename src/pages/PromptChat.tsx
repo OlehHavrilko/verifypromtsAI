@@ -198,7 +198,7 @@ const PromptChat = () => {
 
   return (
     <>
-      <PageMeta title={"Prompt Chat — Iterative Prompting — PromptForge"} description={"Refine your AI prompts through iterative chat. Test, tweak and improve prompts with live model feedback."} path="/chat" />
+      <PageMeta title={"Prompt Chat — Iterative Prompting — PromptLab"} description={"Refine your AI prompts through iterative chat. Test, tweak and improve prompts with live model feedback."} path="/chat" />
     <main className="min-h-screen bg-background flex flex-col">
       {/* Background */}
       <div className="fixed inset-0 pointer-events-none">

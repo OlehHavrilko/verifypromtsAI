@@ -1,5 +1,5 @@
 {
-  "name": "verifypromts-ai",
+  "name": "promptlab",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -14,7 +14,8 @@
     "build:dev": "vite build --mode development",
     "typecheck": "tsc -p tsconfig.app.json --noEmit",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:deepseek": "node scripts/test-deepseek.mjs"
   },
   "dependencies": {
     "@fontsource/archivo-black": "^5.3.0",

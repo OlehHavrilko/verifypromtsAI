@@ -48,12 +48,12 @@ GitHub Pages — статический хостинг, поэтому прям�
 
 ## Свой домен
 
-1. **Settings → Pages → Custom domain** → `promptforge.example.com`.
-2. В DNS: `CNAME promptforge.example.com → <user>.github.io`.
+1. **Settings → Pages → Custom domain** → `promptlab.example.com`.
+2. В DNS: `CNAME promptlab.example.com → <user>.github.io`.
 3. В `public/` положите файл `CNAME` с доменом (иначе Pages может сбросить его).
 4. Соберите без подпути: в `deploy-pages.yml` замените
    `VITE_BASE_PATH: /${{ github.event.repository.name }}/` на `VITE_BASE_PATH: /`,
-   добавьте `VITE_SITE_URL: https://promptforge.example.com`.
+   добавьте `VITE_SITE_URL: https://promptlab.example.com`.
 5. В Supabase Auth обновите Site URL / Redirect URLs, в Supabase secrets —
    `APP_SITE_URL`.
 

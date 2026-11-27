@@ -131,7 +131,7 @@ const Settings = () => {
 
   return (
     <>
-      <PageMeta title={"Settings — PromptForge"} description={"Manage your PromptForge account, language, AI provider keys and preferences for prompt generation."} path="/settings" noindex />
+      <PageMeta title={"Settings — PromptLab"} description={"Manage your PromptLab account, language, AI provider keys and preferences for prompt generation."} path="/settings" noindex />
     <main className="min-h-screen bg-background relative overflow-hidden">
       {/* Background */}
       <div className="fixed inset-0 pointer-events-none">

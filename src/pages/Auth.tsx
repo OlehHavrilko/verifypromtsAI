@@ -106,7 +106,7 @@ const Auth = () => {
         } else {
           toast({
             title: 'Регистрация успешна!',
-            description: 'Добро пожаловать в PromptForge'
+            description: 'Добро пожаловать в PromptLab'
           });
           navigate('/');
         }
@@ -118,7 +118,7 @@ const Auth = () => {
 
   return (
     <>
-      <PageMeta title={"Sign in or create account — PromptForge"} description={"Log in or register on PromptForge to save prompts, unlock premium AI tools and sync your prompt library across devices."} path="/auth" noindex />
+      <PageMeta title={"Sign in or create account — PromptLab"} description={"Log in or register on PromptLab to save prompts, unlock premium AI tools and sync your prompt library across devices."} path="/auth" noindex />
     <main className="min-h-screen bg-background relative overflow-hidden flex items-center justify-center">
       {/* Background Effects */}
       <div className="fixed inset-0 pointer-events-none">
@@ -144,7 +144,7 @@ const Auth = () => {
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-4">
               <Zap className="w-4 h-4 text-primary" />
-              <span className="text-sm font-semibold text-gradient">PromptForge</span>
+              <span className="text-sm font-semibold text-gradient">PromptLab</span>
             </div>
             <h1 className="text-2xl font-bold text-foreground">
               {isLogin ? 'Вход в аккаунт' : 'Создать аккаунт'}

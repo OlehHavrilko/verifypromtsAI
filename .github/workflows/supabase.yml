@@ -1,18 +1,27 @@
 name: Deploy Supabase backend
 
-# Manual only: pushing database migrations and edge functions is a deliberate
-# action. Requires repo secrets:
+# Manual only: pushing database migrations, edge-function secrets and functions
+# is a deliberate action.
+#
+# Repository secrets:
 #   SUPABASE_ACCESS_TOKEN  — https://supabase.com/dashboard/account/tokens
 #   SUPABASE_PROJECT_REF   — project reference, e.g. abcdefghijklmnop
 #   SUPABASE_DB_PASSWORD   — database password
-# Edge-function secrets (AI_API_KEY, AI_MODEL, APP_SITE_URL, STRIPE_*) are set
-# once with `supabase secrets set` — see SETUP.md.
+#   AI_API_KEY             — DeepSeek API key (required for the AI features)
+# Optional secrets: AI_VISION_API_KEY, STRIPE_SECRET_KEY
+# Optional variables: AI_MODEL, AI_JUDGE_MODEL, AI_VISION_MODEL,
+#                     AI_VISION_BASE_URL, APP_SITE_URL,
+#                     VITE_STRIPE_PRODUCT_PRO, VITE_STRIPE_PRODUCT_BUSINESS
 
 on:
   workflow_dispatch:
     inputs:
       push_migrations:
         description: Apply database migrations (supabase db push)
+        type: boolean
+        default: true
+      push_secrets:
+        description: Push edge-function secrets (AI_API_KEY, AI_MODEL, ...)
         type: boolean
         default: true
       deploy_functions:
@@ -46,6 +55,39 @@ jobs:
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+
+      - name: Push edge-function secrets
+        if: ${{ inputs.push_secrets }}
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+          AI_API_KEY: ${{ secrets.AI_API_KEY }}
+          AI_MODEL: ${{ vars.AI_MODEL || 'deepseek-chat' }}
+          AI_JUDGE_MODEL: ${{ vars.AI_JUDGE_MODEL }}
+          AI_VISION_MODEL: ${{ vars.AI_VISION_MODEL }}
+          AI_VISION_BASE_URL: ${{ vars.AI_VISION_BASE_URL }}
+          AI_VISION_API_KEY: ${{ secrets.AI_VISION_API_KEY }}
+          APP_SITE_URL: ${{ vars.APP_SITE_URL }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_PRODUCT_PRO: ${{ vars.VITE_STRIPE_PRODUCT_PRO }}
+          STRIPE_PRODUCT_BUSINESS: ${{ vars.VITE_STRIPE_PRODUCT_BUSINESS }}
+        run: |
+          set -euo pipefail
+          if [ -z "${AI_API_KEY:-}" ]; then
+            echo "::error::Add AI_API_KEY to repository secrets (Settings → Secrets and variables → Actions)"
+            exit 1
+          fi
+          pairs=("AI_API_KEY=$AI_API_KEY")
+          for name in AI_MODEL AI_JUDGE_MODEL AI_VISION_MODEL AI_VISION_BASE_URL \
+                      AI_VISION_API_KEY APP_SITE_URL STRIPE_SECRET_KEY \
+                      STRIPE_PRODUCT_PRO STRIPE_PRODUCT_BUSINESS; do
+            value="${!name:-}"
+            if [ -n "$value" ]; then
+              pairs+=("$name=$value")
+            fi
+          done
+          printf 'Setting %s secret(s): %s\n' "${#pairs[@]}" "$(printf '%s ' "${pairs[@]%%=*}")"
+          supabase secrets set --project-ref "$SUPABASE_PROJECT_REF" "${pairs[@]}"
 
       - name: Deploy edge functions
         if: ${{ inputs.deploy_functions }}

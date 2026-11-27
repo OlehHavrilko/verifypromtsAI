@@ -15,7 +15,7 @@ const fallback = `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>PromptForge</title>
+    <title>PromptLab</title>
     <script>
       // Preserve the requested route and bounce to the SPA entry point.
       var target = ${JSON.stringify(entry)} + "?redirect=" + encodeURIComponent(

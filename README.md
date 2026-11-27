@@ -1,4 +1,4 @@
-# PromptForge (verifypromtsAI)
+# PromptLab
 
 Веб-приложение для конструирования, оценки и переиспользования AI-промптов.
 Собственный проект: фронтенд — статический бандл на GitHub Pages, бэкенд — свой
@@ -63,7 +63,8 @@ npm run build      # production-сборка в dist/
 npm run preview    # локальный просмотр сборки
 npm run typecheck  # tsc --noEmit
 npm run lint       # ESLint
-npm run test:validate
+npm run test:validate  # юнит-тесты
+npm run test:deepseek  # проверка ключа DeepSeek API (нужен AI_API_KEY)
 ```
 
 ---
@@ -89,7 +90,7 @@ supabase/
 .github/workflows/
 ├── ci.yml                 # lint + typecheck + тесты + build на push/PR
 ├── deploy-pages.yml       # сборка и публикация на GitHub Pages
-└── supabase.yml           # ручной деплой миграций и функций
+└── supabase.yml           # ручной деплой миграций, секретов и функций
 ```
 
 ### Как устроены AI-вызовы

@@ -1,4 +1,4 @@
-// Stripe product/price mapping for PromptForge tiers.
+// Stripe product/price mapping for PromptLab tiers.
 // Create the products in your own Stripe account and pass the IDs through
 // VITE_STRIPE_PRICE_PRO / VITE_STRIPE_PRICE_BUSINESS (see .env.example).
 // The checkout edge function resolves the price on the server, so a missing ID

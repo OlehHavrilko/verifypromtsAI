@@ -1,7 +1,7 @@
 export const translations = {
   en: {
     // Header
-    appTitle: "PromptForge",
+    appTitle: "PromptLab",
     appTagline: "Transform your ideas into powerful AI prompts",
     
     // Navigation
@@ -100,7 +100,7 @@ export const translations = {
   
   ru: {
     // Header
-    appTitle: "PromptForge",
+    appTitle: "PromptLab",
     appTagline: "Превратите ваши идеи в мощные AI-промпты",
     
     // Navigation
@@ -199,7 +199,7 @@ export const translations = {
   
   ua: {
     // Header
-    appTitle: "PromptForge",
+    appTitle: "PromptLab",
     appTagline: "Перетворіть ваші ідеї на потужні AI-промпти",
     
     // Navigation

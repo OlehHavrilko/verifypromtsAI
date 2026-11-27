@@ -59,9 +59,9 @@ export function GeneratedPrompt({ prompt, isGenerating, inputText = "", title = 
       case "txt":
         return `${title}\n${"=".repeat(title.length)}\n\nGenerated: ${timestamp}\n\n--- Original Input ---\n${inputText || "N/A"}\n\n--- Generated Prompt ---\n${prompt}`;
       case "json":
-        return JSON.stringify({ title, generatedAt: timestamp, inputText: inputText || null, generatedPrompt: prompt, metadata: { version: "1.0", source: "PromptForge" } }, null, 2);
+        return JSON.stringify({ title, generatedAt: timestamp, inputText: inputText || null, generatedPrompt: prompt, metadata: { version: "1.0", source: "PromptLab" } }, null, 2);
       case "md":
-        return `# ${title}\n\n**Generated:** ${timestamp}\n\n## Original Input\n\n\`\`\`\n${inputText || "N/A"}\n\`\`\`\n\n## Generated Prompt\n\n\`\`\`\n${prompt}\n\`\`\`\n\n---\n*Exported from PromptForge*`;
+        return `# ${title}\n\n**Generated:** ${timestamp}\n\n## Original Input\n\n\`\`\`\n${inputText || "N/A"}\n\`\`\`\n\n## Generated Prompt\n\n\`\`\`\n${prompt}\n\`\`\`\n\n---\n*Exported from PromptLab*`;
       default:
         return prompt;
     }

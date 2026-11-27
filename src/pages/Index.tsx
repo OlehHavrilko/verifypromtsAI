@@ -217,7 +217,7 @@ const Index = () => {
 
   return (
     <>
-      <PageMeta title={"Prompt Generator — PromptForge"} description={"Generate optimized AI prompts with the PromptForge builder. Configure role, context, task, constraints and format in one place."} path="/app" />
+      <PageMeta title={"Prompt Generator — PromptLab"} description={"Generate optimized AI prompts with the PromptLab builder. Configure role, context, task, constraints and format in one place."} path="/app" />
       <div className="relative min-h-full flex flex-col bg-background overflow-hidden">
         <div className="forge-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden />
         <div className="pointer-events-none absolute left-1/2 top-0 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-primary/10 blur-[120px]" aria-hidden />
@@ -227,7 +227,7 @@ const Index = () => {
         <div className="relative flex-1 p-5 lg:p-10 max-w-7xl mx-auto w-full flex flex-col gap-8">
           <header className="mx-auto max-w-3xl pt-4 text-center">
             <div className="mb-5 flex items-center justify-center gap-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary" />PromptForge<span className="h-1.5 w-1.5 rounded-full bg-primary" />
+              <span className="h-1.5 w-1.5 rounded-full bg-primary" />PromptLab<span className="h-1.5 w-1.5 rounded-full bg-primary" />
             </div>
             <h1 className="font-display text-4xl md:text-6xl leading-[1.05] text-foreground">
               {headline} <span className="text-primary">{headlineAccent}?</span>

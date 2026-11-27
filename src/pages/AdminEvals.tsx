@@ -312,7 +312,7 @@ export default function AdminEvals() {
 
   return (
     <>
-      <PageMeta title={"Evaluations — Admin — PromptForge"} description={"Run and compare prompt evaluations across versions to keep AI output quality high."} path="/admin/evals" noindex />
+      <PageMeta title={"Evaluations — Admin — PromptLab"} description={"Run and compare prompt evaluations across versions to keep AI output quality high."} path="/admin/evals" noindex />
     <div className="p-6 space-y-6 max-w-[1400px] mx-auto">
       <div className="flex items-center justify-between">
         <div>

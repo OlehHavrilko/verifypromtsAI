@@ -112,7 +112,7 @@ export function AppSidebar() {
         <div className="flex items-center gap-2">
           <span className="grid h-7 w-7 place-items-center rounded-md bg-primary text-primary-foreground font-display text-sm">P</span>
           {!collapsed ? (
-            <span className="font-display text-base text-foreground">PromptForge</span>
+            <span className="font-display text-base text-foreground">PromptLab</span>
           ) : null}
         </div>
       </SidebarHeader>

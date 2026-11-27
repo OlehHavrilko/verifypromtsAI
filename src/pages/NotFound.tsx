@@ -11,7 +11,7 @@ const NotFound = () => {
 
   return (
     <>
-      <PageMeta title={"Page not found — PromptForge"} description={"The page you're looking for doesn't exist. Head back to PromptForge and keep building great AI prompts."} path="/404" noindex />
+      <PageMeta title={"Page not found — PromptLab"} description={"The page you're looking for doesn't exist. Head back to PromptLab and keep building great AI prompts."} path="/404" noindex />
     <div className="flex min-h-screen items-center justify-center bg-muted">
       <div className="text-center">
         <h1 className="mb-4 text-4xl font-bold">404</h1>

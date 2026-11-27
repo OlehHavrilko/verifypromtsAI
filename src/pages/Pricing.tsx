@@ -140,7 +140,7 @@ const Pricing = () => {
 
   return (
     <>
-      <PageMeta title={"Pricing plans — PromptForge"} description={"Compare PromptForge Free, Pro and Business plans. Choose the right AI prompt engineering plan for your workflow and team size."} path="/pricing" />
+      <PageMeta title={"Pricing plans — PromptLab"} description={"Compare PromptLab Free, Pro and Business plans. Choose the right AI prompt engineering plan for your workflow and team size."} path="/pricing" />
     <main className="min-h-screen bg-background relative overflow-hidden">
       {/* Background */}
       <div className="fixed inset-0 pointer-events-none">
@@ -162,7 +162,7 @@ const Pricing = () => {
               <div className="p-2.5 rounded-xl glass-card">
                 <Command className="w-5 h-5 text-primary" />
               </div>
-              <span className="text-lg font-semibold tracking-tight">PromptForge</span>
+              <span className="text-lg font-semibold tracking-tight">PromptLab</span>
             </div>
             <Button variant="macos" onClick={() => navigate('/app')} className="gap-2">
               {language === 'en' ? 'Open App' : language === 'ua' ? 'Відкрити' : 'Открыть'}

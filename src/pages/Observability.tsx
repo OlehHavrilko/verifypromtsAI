@@ -103,7 +103,7 @@ export default function Observability() {
 
   return (
     <>
-      <PageMeta title={"Observability — Admin — PromptForge"} description={"Monitor edge function traces, latency and errors across PromptForge AI endpoints."} path="/admin/observability" noindex />
+      <PageMeta title={"Observability — Admin — PromptLab"} description={"Monitor edge function traces, latency and errors across PromptLab AI endpoints."} path="/admin/observability" noindex />
     <div className="p-6 space-y-6 overflow-auto">
       <div>
         <h1 className="text-2xl font-bold">Observability</h1>

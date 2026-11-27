@@ -7,7 +7,7 @@ const TextToolsPage = () => {
   
   return (
     <>
-      <PageMeta title={"Text Tools — Humanizer & AI Detector — PromptForge"} description={"Humanize AI-generated text and check content with the AI detector. Refine copy directly inside PromptForge."} path="/app/text-tools" />
+      <PageMeta title={"Text Tools — Humanizer & AI Detector — PromptLab"} description={"Humanize AI-generated text and check content with the AI detector. Refine copy directly inside PromptLab."} path="/app/text-tools" />
     <div className="p-4 md:p-6 max-w-4xl mx-auto">
       <h1 className="text-xl font-semibold mb-4 text-foreground">
         {language === 'en' ? 'Text Tools' : language === 'ua' ? 'Текстові інструменти' : 'Текстовые инструменты'}

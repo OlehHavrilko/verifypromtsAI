@@ -8,7 +8,7 @@ import type {
   PromptStoreState,
 } from "@/lib/types/promptTypes";
 
-const STORAGE_KEY = "promtforge-state-v1";
+const STORAGE_KEY = "promptlab-state-v1";
 
 type PersistedState = Pick<PromptStoreState, "prompts" | "collections" | "filters">;
 

@@ -122,7 +122,7 @@ const Promo = () => {
 
   return (
     <>
-      <PageMeta title={"PromptForge — AI Prompt Generator & Engineering Tool"} description={"Craft high-quality AI prompts in seconds. PromptForge turns simple ideas into structured prompts for ChatGPT, Claude, Gemini and more."} path="/" />
+      <PageMeta title={"PromptLab — AI Prompt Generator & Engineering Tool"} description={"Craft high-quality AI prompts in seconds. PromptLab turns simple ideas into structured prompts for ChatGPT, Claude, Gemini and more."} path="/" />
     <main className="min-h-screen bg-background relative overflow-hidden">
       {/* Background */}
       <div className="fixed inset-0 pointer-events-none">
@@ -139,7 +139,7 @@ const Promo = () => {
               <div className="p-2 rounded-xl bg-primary/10 border border-primary/20">
                 <Command className="w-5 h-5 text-primary" />
               </div>
-              <span className="text-lg font-bold tracking-tight">PromptForge</span>
+              <span className="text-lg font-bold tracking-tight">PromptLab</span>
             </div>
             <div className="flex items-center gap-2">
               <Button variant="ghost" size="sm" onClick={() => navigate("/pricing")} className="text-muted-foreground hover:text-foreground">
@@ -301,7 +301,7 @@ const Promo = () => {
               <div className="w-3 h-3 rounded-full bg-destructive/60" />
               <div className="w-3 h-3 rounded-full bg-warning/60" />
               <div className="w-3 h-3 rounded-full bg-success/60" />
-              <span className="ml-3 text-xs text-muted-foreground font-mono">promptforge.app</span>
+              <span className="ml-3 text-xs text-muted-foreground font-mono">promptlab.app</span>
             </div>
 
             <div className="p-6 space-y-4">
@@ -396,10 +396,10 @@ const Promo = () => {
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-2.5">
                 <Command className="w-4 h-4 text-primary" />
-                <span className="font-semibold text-sm">PromptForge</span>
+                <span className="font-semibold text-sm">PromptLab</span>
               </div>
               <p className="text-xs text-muted-foreground">
-                © 2024 PromptForge. {language === 'en' ? 'All rights reserved.' : language === 'ua' ? 'Всі права захищені.' : 'Все права защищены.'}
+                © {new Date().getFullYear()} PromptLab. {language === 'en' ? 'All rights reserved.' : language === 'ua' ? 'Всі права захищені.' : 'Все права защищены.'}
               </p>
               <div className="flex items-center gap-2">
                 <Globe className="w-3.5 h-3.5 text-muted-foreground" />

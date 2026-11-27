@@ -292,7 +292,7 @@ export default function AdminApiKeys() {
 function KeyTable({ rows }: { rows: KeyRecord[] }) {
   return (
     <>
-      <PageMeta title={"API Keys — Admin — PromptForge"} description={"View AI provider API keys and the edge functions that consume them."} path="/admin/api-keys" noindex />
+      <PageMeta title={"API Keys — Admin — PromptLab"} description={"View AI provider API keys and the edge functions that consume them."} path="/admin/api-keys" noindex />
     <Card>
       <CardContent className="p-0">
         <Table>

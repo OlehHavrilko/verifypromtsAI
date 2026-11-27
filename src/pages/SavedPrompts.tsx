@@ -118,7 +118,7 @@ const SavedPrompts = () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `promptforge-export-${new Date().toISOString().split('T')[0]}.json`;
+    a.download = `promptlab-export-${new Date().toISOString().split('T')[0]}.json`;
     a.click();
     URL.revokeObjectURL(url);
     toast({ title: language === 'en' ? 'Exported!' : language === 'ua' ? 'Експортовано!' : 'Экспортировано!' });
@@ -129,11 +129,11 @@ const SavedPrompts = () => {
     const md = prompts.map(p => 
       `## ${p.title}\n\n**Input:** ${p.input_text}\n\n**Prompt:**\n${p.generated_prompt}\n\n**Tags:** ${(p.tags || []).join(', ') || '—'}\n**Length:** ${p.length_setting}\n**Date:** ${new Date(p.created_at).toLocaleDateString()}\n\n---\n`
     ).join('\n');
-    const blob = new Blob([`# PromptForge Export\n\n${md}`], { type: 'text/markdown' });
+    const blob = new Blob([`# PromptLab Export\n\n${md}`], { type: 'text/markdown' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `promptforge-export-${new Date().toISOString().split('T')[0]}.md`;
+    a.download = `promptlab-export-${new Date().toISOString().split('T')[0]}.md`;
     a.click();
     URL.revokeObjectURL(url);
     toast({ title: language === 'en' ? 'Exported!' : language === 'ua' ? 'Експортовано!' : 'Экспортировано!' });
@@ -379,7 +379,7 @@ function PromptCard({ prompt, language, onToggleFavorite, onDelete, onCopy, onUp
 
   return (
     <>
-      <PageMeta title={"Saved Prompts — PromptForge"} description={"Access your saved AI prompts, organize them with tags and reuse your best-performing prompt drafts anytime."} path="/prompts" noindex />
+      <PageMeta title={"Saved Prompts — PromptLab"} description={"Access your saved AI prompts, organize them with tags and reuse your best-performing prompt drafts anytime."} path="/prompts" noindex />
     <div className="glass-strong rounded-xl p-4 group">
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1 min-w-0">

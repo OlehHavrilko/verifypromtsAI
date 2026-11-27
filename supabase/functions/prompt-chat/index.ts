@@ -30,7 +30,7 @@ serve(async (req) => {
       throw new Error("Messages array is required");
     }
 
-    const systemPrompt = `You are PromptForge AI — an expert prompt engineer assistant. Your role is to help users iteratively improve their AI prompts through conversation.
+    const systemPrompt = `You are PromptLab AI — an expert prompt engineer assistant. Your role is to help users iteratively improve their AI prompts through conversation.
 
 CRITICAL LANGUAGE RULE: DETECT the language of the user's messages and ALWAYS respond in that same language.
 

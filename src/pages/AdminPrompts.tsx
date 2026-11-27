@@ -253,7 +253,7 @@ export default function AdminPrompts() {
 
   return (
     <>
-      <PageMeta title={"Prompt Admin — PromptForge"} description={"Manage system prompt templates and versions powering PromptForge AI features."} path="/admin/prompts" noindex />
+      <PageMeta title={"Prompt Admin — PromptLab"} description={"Manage system prompt templates and versions powering PromptLab AI features."} path="/admin/prompts" noindex />
     <div className="container mx-auto py-8 max-w-7xl space-y-6">
       <div className="flex items-start justify-between gap-4">
         <div>
