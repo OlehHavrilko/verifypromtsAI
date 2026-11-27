@@ -45,7 +45,7 @@ cp .env.example .env      # вписать URL и publishable key своего S
 npm run dev               # http://localhost:8080
 ```
 
-Бэкенд поднимается отдельно — см. **[SETUP.md](SETUP.md)**:
+Бэкенд поднимается отдельно — см. **[SETUP.md](SETUP.md)**, а карта всех ключей и переменных (что, где взять, куда положить) — **[SECRETS.md](SECRETS.md)**:
 
 1. создать свой проект Supabase;
 2. `supabase db push` — применить миграции из `supabase/migrations`;
@@ -123,7 +123,7 @@ supabase/
   (`VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`), серверные ключи — secrets
   Supabase, токены деплоя — secrets GitHub.
 
-Пошаговая инструкция: **[SETUP.md](SETUP.md)**.
+Пошаговая инструкция: **[SETUP.md](SETUP.md)**. Справочник по секретам и переменным: **[SECRETS.md](SECRETS.md)**.
 
 ---
 
