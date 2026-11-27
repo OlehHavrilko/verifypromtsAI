@@ -132,13 +132,6 @@ const KEY_REGISTRY: KeyRecord[] = [
     functions: ["client (браузер)"],
     publicSafe: true,
   },
-  {
-    name: "VITE_SUPABASE_PROJECT_ID",
-    source: "env",
-    purpose: "ID проекта для конфигурации",
-    functions: ["client (браузер)"],
-    publicSafe: true,
-  },
 ];
 
 const USER_PROVIDERS: { provider: string; label: string; routedVia: string }[] = [
